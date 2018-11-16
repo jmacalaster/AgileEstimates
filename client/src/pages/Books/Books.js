@@ -59,38 +59,38 @@ class Books extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>Add Your Project Title Here:</h1>
             </Jumbotron>
             <form>
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
-                placeholder="Title (required)"
+                placeholder="Project Name (required)"
               />
               <Input
                 value={this.state.author}
                 onChange={this.handleInputChange}
                 name="author"
-                placeholder="Author (required)"
+                placeholder="Project Owner (required)"
               />
               <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}
                 name="synopsis"
-                placeholder="Synopsis (Optional)"
+                placeholder="Project Description (Optional)"
               />
               <FormBtn
                 disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Book
+                Submit Project
               </FormBtn>
             </form>
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Current Projects to Estimate</h1>
             </Jumbotron>
             {this.state.books.length ? (
               <List>
@@ -98,7 +98,7 @@ class Books extends Component {
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {book.title} managed by {book.author}
                       </strong>
                     </Link>
                     <DeleteBtn onClick={() => this.deleteBook(book._id)} />

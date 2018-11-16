@@ -16,5 +16,12 @@ export default {
   // Saves a book to the database
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
+  },
+  //Saves a new user to the database 
+  findLogin: function(id) {
+    return axios.get("/api/user/" + id);
+  },
+  saveNewUser: function(signupData) {
+    return axios.post("/api/user", signupData);
   }
 };
