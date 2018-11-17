@@ -25,22 +25,15 @@ module.exports = {
         email: req.body.email,
         password: req.body.password
       }).then(function() {
-        res.redirect(307, "/");
+        res.redirect(307, "/books");
       }).catch(function(err) {
         console.log(err);
         res.json(err);
         // res.status(422).json(err.errors[0].message);
       });
   }, 
-  update: function(req, res) {
-    db.User
-      .update(req.body, 
-        {
-          where: {
-            _id: req.params.id 
-          },
-      }).then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  login: function(req, res) {
+    res.json("/books")
   },
   remove: function(req, res) {
     db.User

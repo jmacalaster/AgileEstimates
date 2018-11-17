@@ -23,8 +23,12 @@ class Login extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.email && this.state.password) {
-      API.saveLogin({
+    if (!this.state.email || !this.state.password) {
+      return;
+    }
+    
+    else {
+      API.findLogin({
         email: this.state.email,
         password: this.state.password,
       })

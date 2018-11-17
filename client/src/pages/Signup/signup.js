@@ -33,7 +33,7 @@ class Signup extends Component {
         email: this.state.email,
         password: this.state.password,
       })
-        // .then(data =>  window.location.replace(data))
+        .then(data =>  window.location.replace(data))
         .catch(err => console.log(err));
     }
   };
@@ -56,6 +56,7 @@ class Signup extends Component {
               <Input
                 value={this.state.password}
                 onChange={this.handleInputChange}
+                type="password"
                 name="password"
                 placeholder="Password (required)"
               />

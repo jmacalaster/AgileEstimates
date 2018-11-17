@@ -18,8 +18,8 @@ export default {
     return axios.post("/api/books", bookData);
   },
   //Saves a new user to the database 
-  findLogin: function(id) {
-    return axios.get("/api/user/" + id);
+  findLogin: function(loginData) {
+    return axios.post("/api/login", loginData);
   },
   saveNewUser: function(signupData) {
     return axios.post("/api/user", signupData);
