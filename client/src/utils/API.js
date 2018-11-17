@@ -22,6 +22,10 @@ export default {
     return axios.post("/api/login", loginData);
   },
   saveNewUser: function(signupData) {
-    return axios.post("/api/user", signupData);
+    return axios.post("/api/user", signupData)
+    .then(function(res) {
+      console.log(res);
+      // window.location.replace("/projects")
+    })
   }
 };

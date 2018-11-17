@@ -25,7 +25,7 @@ module.exports = {
         email: req.body.email,
         password: req.body.password
       }).then(function() {
-        res.redirect(307, "/books");
+        res.json();
       }).catch(function(err) {
         console.log(err);
         res.json(err);

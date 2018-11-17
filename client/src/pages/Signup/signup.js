@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
+import Login from "../Login";
+import Projects from "../Projects";
 
 class Signup extends Component {
   state = {
@@ -33,13 +35,15 @@ class Signup extends Component {
         email: this.state.email,
         password: this.state.password,
       })
-        .then(data =>  window.location.replace(data))
+        .then(data => this.props.updateAuth(true))
         .catch(err => console.log(err));
     }
   };
 
   render() {
     return (
+      <div>
+      { !this.props.isAuthed ? (
       <Container fluid>
         <Row>
           <Col size="md-12">
@@ -68,12 +72,15 @@ class Signup extends Component {
               </FormBtn>
             </form>
             <br />
-            <p>Or log in <a href="/login">here</a></p>
+            <p>Or log in <Link to={Login}>here</Link></p>
           </Col>
         </Row>
       </Container>
-    );
-  }
+      ) : (
+    <Redirect to="/projects" component={Projects} /> 
+      )}
+    </div> )
+}
 }
 
 export default Signup;
