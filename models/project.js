@@ -1,12 +1,12 @@
 // Creating our User model
 module.exports = function(sequelize, DataTypes) {
-  var Book = sequelize.define("Book", {
+  var Project = sequelize.define("Project", {
     // The email cannot be null, and must be a proper email before creation
     title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    author: {
+    owner: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
     }
   });
-  return Book;
+  return Project;
 };  
 
 

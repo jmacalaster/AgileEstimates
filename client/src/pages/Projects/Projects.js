@@ -7,29 +7,29 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
-class Books extends Component {
+class Projects extends Component {
   state = {
-    books: [],
+    projects: [],
     title: "",
-    author: "",
+    owner: "",
     synopsis: ""
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadProjects();
   }
 
-  loadBooks = () => {
-    API.getBooks()
+  loadProjects = () => {
+    API.getProjects()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ projects: res.data, title: "", owner: "", synopsis: "" })
       )
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
+  deleteProject = id => {
+    API.deleteProject(id)
+      .then(res => this.loadProjects())
       .catch(err => console.log(err));
   };
 
@@ -42,13 +42,13 @@ class Books extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
+    if (this.state.title && this.state.owner) {
+      API.saveProject({
         title: this.state.title,
-        author: this.state.author,
+        owner: this.state.owner,
         synopsis: this.state.synopsis
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadProjects())
         .catch(err => console.log(err));
     }
   };
@@ -69,9 +69,9 @@ class Books extends Component {
                 placeholder="Project Name (required)"
               />
               <Input
-                value={this.state.author}
+                value={this.state.owner}
                 onChange={this.handleInputChange}
-                name="author"
+                name="owner"
                 placeholder="Project Owner (required)"
               />
               <TextArea
@@ -81,7 +81,7 @@ class Books extends Component {
                 placeholder="Project Description (Optional)"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
+                disabled={!(this.state.owner && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Submit Project
@@ -92,16 +92,16 @@ class Books extends Component {
             <Jumbotron>
               <h1>Current Projects to Estimate</h1>
             </Jumbotron>
-            {this.state.books.length ? (
+            {this.state.projects.length ? (
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
+                {this.state.projects.map(project => (
+                  <ListItem key={project.id}>
+                    <Link to={"/projects/" + project.id}>
                       <strong>
-                        {book.title} managed by {book.author}
+                        {project.title} managed by {project.owner}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <DeleteBtn onClick={() => this.deleteProject(project.id)} />
                   </ListItem>
                 ))}
               </List>
@@ -115,4 +115,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Projects;
