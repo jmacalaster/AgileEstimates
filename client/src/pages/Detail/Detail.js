@@ -3,20 +3,31 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
+import StoryCard from "../../components/StoryCard";
+import StoryCardWrapper from "../../components/StoryCardWrapper";
+import sampleStories from "./SampleStories.json";
 
 class Detail extends Component {
   state = {
-    project: {}
+    project: {},
+    sampleStories
   };
 
 
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+  // When this component mounts, grab the project with the _id of this.props.match.params.id
+  // e.g. localhost:3000/projects/1
   componentDidMount() {
     API.getProject(this.props.match.params.id)
       .then(res => this.setState({ project: res.data }))
       .catch(err => console.log(err));
   }
+
+  removeStory = id => {
+    // Filter this.state.friends for friends with an id not equal to the id being removed
+    const sampleStories = this.state.sampleStories.filter(story => story.id !== id);
+    // Set this.state.friends equal to the new friends array
+    this.setState({ sampleStories });
+  };
 
   render() {
     return (
@@ -40,6 +51,28 @@ class Detail extends Component {
             <Jumbotron>
               <h1>Icebox</h1>
             </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-6">
+            <StoryCardWrapper>
+            {this.state.sampleStories.map(story => (
+              <StoryCard
+                removeStory={this.removeStory}
+                id={story.id}
+                key={story.id}
+                story={story.story}
+                perfectDays={story.perfectDays}
+                certainty={story.certainty}
+                icebox={story.icebox}
+              />
+            ))}
+            </StoryCardWrapper>
+          </Col>
+          <Col size="md-6">
+            <StoryCardWrapper>
+
+            </StoryCardWrapper>
           </Col>
         </Row>
         <Row>

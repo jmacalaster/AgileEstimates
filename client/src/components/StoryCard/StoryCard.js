@@ -1,7 +1,7 @@
 import React from "react";
 import "./StoryCard.css";
 
-const StoryCard = props => (
+export const StoryCard = props => (
   <div
     role="img"
     aria-label="click item"
