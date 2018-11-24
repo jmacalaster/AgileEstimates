@@ -3,14 +3,14 @@ const projectsController = require("../../controllers/projectsController");
 
 // Matches with "/api/books"
 router.route("/")
-  .get(storiesController.findAll)
-  .post(storiesController.create);
+  .get(projectsController.findAll)
+  .post(projectsController.create);
 
 // Matches with "/api/books/:id"
 router
   .route("/:id")
-  .get(storiesController.findById)
-  .put(storiesController.update)
-  .delete(storiesController.remove);
+  .get(projectsController.findById)
+  .put(projectsController.update)
+  .delete(projectsController.remove);
 
 module.exports = router;

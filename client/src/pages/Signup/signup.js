@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link, Redirect } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
-import Login from "../Login";
 import Projects from "../Projects";
 
 class Signup extends Component {
@@ -26,7 +23,6 @@ class Signup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (!this.state.email || !this.state.password) {
-        console.log("Could not save user")
         return;
     }
     
@@ -72,7 +68,7 @@ class Signup extends Component {
               </FormBtn>
             </form>
             <br />
-            <p>Or log in <Link to={Login}>here</Link></p>
+            <p>Or log in <Link to="/login">here</Link></p>
           </Col>
         </Row>
       </Container>

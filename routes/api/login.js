@@ -1,16 +1,11 @@
 const router = require("express").Router();
 const loginController = require("../../controllers/loginController");
-var passport = require("../../config/passport");
 
 // Matches with "/api/login"
+// Using the passport.authenticate middleware with our local strategy.
+// If the user has valid login credentials, send them to the members page.
+// Otherwise the user will be sent an error
 router.route("/")
-  .post(passport.authenticate("local"), loginController.login);
-
-// Matches with "/api/signup/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+  .post(loginController.login);
 
 module.exports = router;

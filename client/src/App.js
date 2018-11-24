@@ -6,6 +6,9 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Stories from "./pages/Stories";
+import { Footer } from "./components/Footer";
+
 
 class App extends Component {
   state = {
@@ -29,8 +32,10 @@ render() {
         <Route exact path="/projects/:id" component={Detail} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/projects/:id/stories" component={Stories} />
         <Route component={NoMatch} />
       </Switch>
+      <Footer />
     </div>
   </Router>
 )}

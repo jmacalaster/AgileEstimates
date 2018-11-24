@@ -5,11 +5,4 @@ const loginController = require("../../controllers/loginController");
 router.route("/")
   .post(loginController.create);
 
-// Matches with "/api/signup/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
-
 module.exports = router;

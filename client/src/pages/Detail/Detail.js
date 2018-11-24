@@ -6,7 +6,7 @@ import API from "../../utils/API";
 
 class Detail extends Component {
   state = {
-    book: {}
+    project: {}
   };
 
 
