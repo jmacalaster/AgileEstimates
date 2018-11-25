@@ -1,1 +1,1 @@
-export * from "./StoryCardWrapper";
+export { default } from "./StoryCardWrapper";

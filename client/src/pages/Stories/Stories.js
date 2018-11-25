@@ -64,7 +64,9 @@ class Stories extends Component {
 
   render() {
     return (
-      <div>
+      <div
+      style={{ paddingLeft: 50, paddingRight: 50 }}
+      >
       <Container fluid>
         <Row>
           <Col size="md-12">

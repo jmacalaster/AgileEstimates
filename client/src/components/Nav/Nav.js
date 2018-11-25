@@ -1,7 +1,9 @@
 import React from "react";
 
 const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav className="navbar navbar-expand-lg navbar-dark bg-primary"
+  style={{ paddingLeft: 50, paddingRight:50 }}
+  >
     <div className="mx-auto order-0">
         <a className="navbar-brand mx-auto" href="/">Agile Estimates</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">

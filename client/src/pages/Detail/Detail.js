@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
+import JumbotronSmall from "../../components/JumbotronSmall";
 import API from "../../utils/API";
 import StoryCard from "../../components/StoryCard";
 import StoryCardWrapper from "../../components/StoryCardWrapper";
@@ -31,6 +32,9 @@ class Detail extends Component {
 
   render() {
     return (
+      <div         
+      style={{ paddingLeft: 50, paddingRight: 50 }}
+      >
       <Container fluid>
         <Row>
           <Col size="md-12">
@@ -43,14 +47,24 @@ class Detail extends Component {
         </Row>
         <Row>
           <Col size="md-6">
-            <Jumbotron style="height:10px">
+            <JumbotronSmall>
+              <div className="card-header">
               <h1>Backlog</h1>
-            </Jumbotron>
+              </div>
+              <div className="card-body">
+                <p className="card-text">These are 'need to have' stories that should be included in the MVP.</p>
+              </div>
+            </JumbotronSmall>
           </Col>
           <Col size="md-6">
-            <Jumbotron>
+            <JumbotronSmall>
+              <div className="card-header">
               <h1>Icebox</h1>
-            </Jumbotron>
+              </div>
+              <div className="card-body">
+                <p className="card-text">These are 'nice to have' stories that aren't required for the MVP.</p>
+              </div>
+            </JumbotronSmall>
           </Col>
         </Row>
         <Row>
@@ -71,18 +85,18 @@ class Detail extends Component {
           </Col>
           <Col size="md-6">
             <StoryCardWrapper>
-
+            {this.state.sampleStories.map(story => (
+              <StoryCard
+                removeStory={this.removeStory}
+                id={story.id}
+                key={story.id}
+                story={story.story}
+                perfectDays={story.perfectDays}
+                certainty={story.certainty}
+                icebox={story.icebox}
+              />
+            ))}
             </StoryCardWrapper>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-10 md-offset-1">
-            <article>
-              <h1>Synopsis</h1>
-              <p>
-                {this.state.project.synopsis}
-              </p>
-            </article>
           </Col>
         </Row>
         <Row>
@@ -91,6 +105,7 @@ class Detail extends Component {
           </Col>
         </Row>
       </Container>
+      </div>
     );
   }
 }

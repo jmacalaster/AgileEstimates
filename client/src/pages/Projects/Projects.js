@@ -55,6 +55,9 @@ class Projects extends Component {
 
   render() {
     return (
+      <div 
+      style={{ paddingLeft: 50, paddingRight: 50 }}
+      >
       <Container fluid>
         <Row>
           <Col size="md-6">
@@ -111,6 +114,7 @@ class Projects extends Component {
           </Col>
         </Row>
       </Container>
+      </div>
     );
   }
 }

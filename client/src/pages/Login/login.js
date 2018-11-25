@@ -38,7 +38,9 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div
+      style={{ paddingLeft: 50, paddingRight: 50 }}
+      >
       { !this.props.isAuthed ? (
       <Container fluid>
         <Row>
