@@ -3,10 +3,10 @@ import "./StoryCard.css";
 
 export const StoryCard = props => (
   <div
-    role="img"
+    draggable
     aria-label="click item"
-    onClick={() => props.handleClick(props.id)}
     className={`click-item${props.shake ? " shake" : ""}`}
+    id="drag-element"
   >
   <div className="card border-primary mb-3">
     <div className="card-header">Perfect Days: {props.perfectDays}  -   Certainty: {props.certainty}</div>

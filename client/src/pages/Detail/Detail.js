@@ -7,6 +7,7 @@ import API from "../../utils/API";
 import StoryCard from "../../components/StoryCard";
 import StoryCardWrapper from "../../components/StoryCardWrapper";
 import sampleStories from "./SampleStories.json";
+import Dragula from 'react-dragula';
 
 class Detail extends Component {
   state = {
@@ -21,7 +22,7 @@ class Detail extends Component {
     API.getProject(this.props.match.params.id)
       .then(res => this.setState({ project: res.data }))
       .catch(err => console.log(err));
-  }
+  };
 
   removeStory = id => {
     // Filter this.state.friends for friends with an id not equal to the id being removed
@@ -69,6 +70,7 @@ class Detail extends Component {
         </Row>
         <Row>
           <Col size="md-6">
+          <div className='containerLeft' ref={this.dragulaDecorator}>
             <StoryCardWrapper>
             {this.state.sampleStories.map(story => (
               <StoryCard
@@ -82,8 +84,10 @@ class Detail extends Component {
               />
             ))}
             </StoryCardWrapper>
+          </div>
           </Col>
           <Col size="md-6">
+          <div className='containerRight' ref={this.dragulaDecorator}>
             <StoryCardWrapper>
             {this.state.sampleStories.map(story => (
               <StoryCard
@@ -97,6 +101,7 @@ class Detail extends Component {
               />
             ))}
             </StoryCardWrapper>
+          </div>
           </Col>
         </Row>
         <Row>
@@ -108,6 +113,12 @@ class Detail extends Component {
       </div>
     );
   }
+  dragulaDecorator = (componentBackingInstance) => {
+    if (componentBackingInstance) {
+      let options = { };
+      Dragula([componentBackingInstance], options);
+    }
+  };
 }
 
 export default Detail;
