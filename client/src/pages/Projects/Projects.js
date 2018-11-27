@@ -99,7 +99,7 @@ class Projects extends Component {
               <List>
                 {this.state.projects.map(project => (
                   <ListItem key={project.id}>
-                    <Link to={"/projects/" + project.id}>
+                    <Link to={"/projects/" + project.id + "/stories"}>
                       <strong>
                         {project.title} managed by {project.owner}
                       </strong>

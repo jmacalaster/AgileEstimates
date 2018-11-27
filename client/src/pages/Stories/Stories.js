@@ -4,8 +4,7 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
 
 class Stories extends Component {
   state = {
@@ -16,6 +15,8 @@ class Stories extends Component {
     noise: "",
     certainty: "",
     icebox: false,
+    min: "",
+    max: "",
   };
 
   componentDidMount() {
@@ -28,7 +29,7 @@ class Stories extends Component {
   loadStories = () => {
     API.getStories()
       .then(res =>
-        this.setState({ stories: res.data, story: "", perfectDays: "", noise: "", certainty: "", icebox: "" })
+        this.setState({ stories: res.data, story: "", perfectDays: "", noise: "", certainty: "", icebox: "", min: "", max: "" })
       )
       .catch(err => console.log(err));
   };
@@ -48,17 +49,22 @@ class Stories extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log(this.state)
+    let max = (((1-parseFloat(this.state.certainty))*parseFloat(this.state.perfectDays))+parseFloat(this.state.perfectDays))/.75
+    console.log(max)
     if (this.state.story) {
       API.saveStory({
         project: this.props.match.params.id,
         story: this.state.story,
         perfectDays: this.state.perfectDays,
-        noise: this.state.noise, 
         certainty: this.state.certainty,
-        icebox: this.state.icebox
+        icebox: false,
+        noise: .25,
+        min: this.state.perfectDays/.75,
+        max: max,
       })
-        .then(res => this.loadStories())
-        .catch(err => console.log(err));
+      .then(res => this.loadStories())
+      .catch(err => console.log(err));
     }
   };
 
@@ -72,7 +78,7 @@ class Stories extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>{this.state.project.title} by {this.state.project.owner}</h1>
-              <h3> Estimation of User Stories </h3>
+              <h4> Estimation of User Stories </h4>
               <p> On this page you will work with your developer team to estimate 
                   how long each user story will take the team to complete. Estimates 
                   should be based on "perfect developer days" (i.e. days when you
@@ -82,8 +88,6 @@ class Stories extends Component {
             </Jumbotron>
           </Col>
           <Col size="md-12">
-              <List>
-                <ListItem>
                 <table className="table table-sm table-hover" id='totals-table'>
                   <thead>
                     <tr>
@@ -96,8 +100,6 @@ class Stories extends Component {
                       <th scope="col">4</th>
                   </tbody>
                 </table>
-                </ListItem>
-                <ListItem>
                 <table className="table table-sm table-hover" id='story-table'>
                   <thead>
                     <tr>
@@ -139,10 +141,10 @@ class Stories extends Component {
                           {story.certainty}
                         </th>
                         <th scope="col" key={story.id}>
-                          {story.perfectDays/(1-0.25)} 
+                          {story.min} 
                         </th>
                         <th scope="col" key={story.id}>
-                          {(((1-story.certainty)*story.perfectDays)+story.perfectDays)/(1-0.25)}
+                          {story.max}
                         </th>
                         <th scope="col">edit</th>
                         </div>
@@ -152,8 +154,7 @@ class Stories extends Component {
                     <h3>No results to display</h3>
                   )}
                 </table>
-                </ListItem>
-                <ListItem>
+                <br />
                   <form>
                     <Input
                     value={this.state.story}
@@ -180,13 +181,11 @@ class Stories extends Component {
                       Submit Story
                     </FormBtn>
                   </form>
-                </ListItem>
-              </List>
           </Col>
         </Row>
           <Link to="/Projects/1">
             <br />
-            <h2> Next, organize your project into a backlog and icebox... </h2>
+            <h4> Next, organize your project into a backlog and icebox... </h4>
             <button type="button" class="btn-primary btn" href> Organize Now </button>
           </Link>
       </Container>

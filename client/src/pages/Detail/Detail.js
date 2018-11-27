@@ -7,14 +7,12 @@ import API from "../../utils/API";
 import StoryCard from "../../components/StoryCard";
 import StoryCardWrapper from "../../components/StoryCardWrapper";
 import sampleStories from "./SampleStories.json";
-import Dragula from 'react-dragula';
 
 class Detail extends Component {
   state = {
     project: {},
     sampleStories
   };
-
 
   // When this component mounts, grab the project with the _id of this.props.match.params.id
   // e.g. localhost:3000/projects/1
@@ -70,7 +68,7 @@ class Detail extends Component {
         </Row>
         <Row>
           <Col size="md-6">
-          <div className='containerLeft' ref={this.dragulaDecorator}>
+          <div className='container'>
             <StoryCardWrapper>
             {this.state.sampleStories.map(story => (
               <StoryCard
@@ -87,7 +85,7 @@ class Detail extends Component {
           </div>
           </Col>
           <Col size="md-6">
-          <div className='containerRight' ref={this.dragulaDecorator}>
+          <div className='container'>
             <StoryCardWrapper>
             {this.state.sampleStories.map(story => (
               <StoryCard
@@ -113,12 +111,6 @@ class Detail extends Component {
       </div>
     );
   }
-  dragulaDecorator = (componentBackingInstance) => {
-    if (componentBackingInstance) {
-      let options = { };
-      Dragula([componentBackingInstance], options);
-    }
-  };
 }
 
 export default Detail;
