@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
     },
     icebox: {
-      type: dataType.BOOLEAN,
+      type: DataTypes.BOOLEAN,
     }
   });
   return Story;

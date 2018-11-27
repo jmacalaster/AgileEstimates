@@ -1,5 +1,5 @@
 const db = require("../models");
-const passport = require("../../config/passport");
+const passport = require("../config/passport");
 
 // Defining methods for the booksController
 module.exports = {
