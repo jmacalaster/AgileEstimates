@@ -5,6 +5,12 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 class Stories extends Component {
   state = {
@@ -27,14 +33,14 @@ class Stories extends Component {
   }
 
   loadStories = () => {
-    API.getStories()
+    API.getStory(this.props.match.params.id)
       .then(res =>
         this.setState({ stories: res.data, story: "", perfectDays: "", noise: "", certainty: "", icebox: "", min: "", max: "" })
       )
       .catch(err => console.log(err));
   };
 
-  deleteStories = id => {
+  deleteStory = id => {
     API.deleteStory(id)
       .then(res => this.loadStories())
       .catch(err => console.log(err));
@@ -88,72 +94,38 @@ class Stories extends Component {
             </Jumbotron>
           </Col>
           <Col size="md-12">
-                <table className="table table-sm table-hover" id='totals-table'>
-                  <thead>
-                    <tr>
-                      <th scope="col">Min Total</th>
-                      <th scope="col">Max Total</th>
-                    </tr>
-                  </thead>
-                  <tbody id='stories-table-body'>
-                      <th scope="col">3</th>
-                      <th scope="col">4</th>
-                  </tbody>
-                </table>
-                <table className="table table-sm table-hover" id='story-table'>
-                  <thead>
-                    <tr>
-                      <th scope="col">Story Description</th>
-                      <th scope="col">Perfect Developer Days</th>
-                      <th scope="col">Certainty %</th>
-                      <th scope="col">Maximum Number of Days</th>
-                      <th scope="col">Minimum Number of Days</th>
-                      <th scope="col"> </th>
-                    </tr>
-                  </thead>
-                  <tbody id='stories-table-body'>
-                      <th scope="col">As a user I would like to be able to log in</th>
-                      <th scope="col">2</th>
-                      <th scope="col">85%</th>
-                      <th scope="col">3</th>
-                      <th scope="col">4</th>
-                      <th scope="col">edit</th>
-                  </tbody>
-                  <tbody id='stories-table-body'>
-                      <th scope="col">As a user I would like to be able to log in</th>
-                      <th scope="col">2</th>
-                      <th scope="col">85%</th>
-                      <th scope="col">3</th>
-                      <th scope="col">4</th>
-                      <th scope="col">edit</th>
-                  </tbody>
-                  {this.state.stories.length ? (
-                    <tbody id='stories-table-body'>
-                      {this.state.stories.map(story => (
-                        <div>
-                        <th scope="col" key={story.id}>
-                          {story.story}
-                        </th>
-                        <th scope="col" key={story.id}>
-                          {story.perfectDays}
-                        </th>
-                        <th scope="col" key={story.id}>
-                          {story.certainty}
-                        </th>
-                        <th scope="col" key={story.id}>
-                          {story.min} 
-                        </th>
-                        <th scope="col" key={story.id}>
-                          {story.max}
-                        </th>
-                        <th scope="col">edit</th>
-                        </div>
-                      ))}
-                    </tbody>
-                  ) : (
-                    <h3>No results to display</h3>
-                  )}
-                </table>
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Story Description</TableCell>
+                  <TableCell numeric>Perfect Developer Days</TableCell>
+                  <TableCell numeric>Certainty %</TableCell>
+                  <TableCell numeric>Minimum Number of Days</TableCell>
+                  <TableCell numeric>Maximum Number of Days</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.stories.map(story => {
+                  return (
+                    <TableRow key={story.id}>
+                      <TableCell component="th" scope="row">
+                        {story.story}
+                      </TableCell>
+                      <TableCell numeric>{story.perfectDays}</TableCell>
+                      <TableCell numeric>{story.certainty}</TableCell>
+                      <TableCell numeric>{story.min}</TableCell>
+                      <TableCell numeric>{story.max}</TableCell>
+                      <TableCell>
+                        <DeleteBtn onClick={() => this.deleteStory(story.id)} />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Paper>
                 <br />
                   <form>
                     <Input

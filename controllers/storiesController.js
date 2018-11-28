@@ -10,9 +10,9 @@ module.exports = {
   },
   findById: function(req, res) {
     db.Story
-      .findOne({
+      .findAll({
         where: {
-          id: req.params.id
+          project: req.params.id
         },
       })
       .then(dbModel => res.json(dbModel))
