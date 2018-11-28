@@ -8,25 +8,32 @@ import StoryCard from "../../components/StoryCard";
 import StoryCardWrapper from "../../components/StoryCardWrapper";
 import sampleStories from "./SampleStories.json";
 
+
 class Detail extends Component {
   state = {
     project: {},
+    stories: [],
     sampleStories
   };
 
   // When this component mounts, grab the project with the _id of this.props.match.params.id
   // e.g. localhost:3000/projects/1
+  // When this component mounts, also grab the stories related to the project with the _id of 
+  // this.props.match.params.id 
+
   componentDidMount() {
     API.getProject(this.props.match.params.id)
       .then(res => this.setState({ project: res.data }))
       .catch(err => console.log(err));
+    API.getStory(this.props.match.params.id)
+      .then(res => this.setState({ stories: res.data }))
+      .catch(err => console.log(err));
   };
 
-  removeStory = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const sampleStories = this.state.sampleStories.filter(story => story.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ sampleStories });
+  deleteStory = id => {
+    API.deleteStory(id)
+      .then(res => this.loadStories())
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -48,7 +55,7 @@ class Detail extends Component {
           <Col size="md-6">
             <JumbotronSmall>
               <div className="card-header">
-              <h1>Backlog</h1>
+              <h3>BACKLOG</h3>
               </div>
               <div className="card-body">
                 <p className="card-text">These are 'need to have' stories that should be included in the MVP.</p>
@@ -58,7 +65,7 @@ class Detail extends Component {
           <Col size="md-6">
             <JumbotronSmall>
               <div className="card-header">
-              <h1>Icebox</h1>
+              <h3>ICEBOX</h3>
               </div>
               <div className="card-body">
                 <p className="card-text">These are 'nice to have' stories that aren't required for the MVP.</p>
@@ -67,40 +74,42 @@ class Detail extends Component {
           </Col>
         </Row>
         <Row>
-          <Col size="md-6">
-          <div className='container'>
-            <StoryCardWrapper>
-            {this.state.sampleStories.map(story => (
-              <StoryCard
-                removeStory={this.removeStory}
-                id={story.id}
-                key={story.id}
-                story={story.story}
-                perfectDays={story.perfectDays}
-                certainty={story.certainty}
-                icebox={story.icebox}
-              />
-            ))}
-            </StoryCardWrapper>
-          </div>
-          </Col>
-          <Col size="md-6">
-          <div className='container'>
-            <StoryCardWrapper>
-            {this.state.sampleStories.map(story => (
-              <StoryCard
-                removeStory={this.removeStory}
-                id={story.id}
-                key={story.id}
-                story={story.story}
-                perfectDays={story.perfectDays}
-                certainty={story.certainty}
-                icebox={story.icebox}
-              />
-            ))}
-            </StoryCardWrapper>
-          </div>
-          </Col>
+          <StoryCardWrapper>
+            <Col size="md-6">
+              {this.state.stories.map(story => (
+                <div className='container'>
+                  <StoryCard
+                    removeStory={this.deleteStory}
+                    id={story.id}
+                    key={story.id}
+                    story={story.story}
+                    perfectDays={story.perfectDays}
+                    certainty={story.certainty}
+                    icebox={story.icebox}
+                    min={story.min}
+                    max={story.max}
+                  />
+                </div>
+              ))}
+            </Col>
+            <Col size="md-6">
+              {this.state.stories.map(story => (
+                <div className='container'>
+                  <StoryCard
+                    removeStory={this.deleteStory}
+                    id={story.id}
+                    key={story.id}
+                    story={story.story}
+                    perfectDays={story.perfectDays}
+                    certainty={story.certainty}
+                    icebox={story.icebox}
+                    min={story.min}
+                    max={story.max}
+                  />
+                </div>
+              ))}
+            </Col>
+          </StoryCardWrapper>
         </Row>
         <Row>
           <Col size="md-2">

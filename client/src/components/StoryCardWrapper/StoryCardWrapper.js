@@ -19,10 +19,3 @@ componentDidMount() {
 
 export default StoryCardWrapper;
 
-// export const StoryCardWrapper = props => (
-
-// <div className="wrapper">{props.children}</div>
-
-// );
-
-// export default StoryCardWrapper;

@@ -11,6 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Delete from '@material-ui/icons/DeleteOutlined';
 
 class Stories extends Component {
   state = {
@@ -34,9 +35,9 @@ class Stories extends Component {
 
   loadStories = () => {
     API.getStory(this.props.match.params.id)
-      .then(res =>
+      .then(res => {
         this.setState({ stories: res.data, story: "", perfectDays: "", noise: "", certainty: "", icebox: "", min: "", max: "" })
-      )
+      })
       .catch(err => console.log(err));
   };
 
@@ -114,11 +115,11 @@ class Stories extends Component {
                         {story.story}
                       </TableCell>
                       <TableCell numeric>{story.perfectDays}</TableCell>
-                      <TableCell numeric>{story.certainty}</TableCell>
+                      <TableCell numeric>{story.certainty*100} %</TableCell>
                       <TableCell numeric>{story.min}</TableCell>
                       <TableCell numeric>{story.max}</TableCell>
                       <TableCell>
-                        <DeleteBtn onClick={() => this.deleteStory(story.id)} />
+                        <Delete onClick={() => this.deleteStory(story.id)} />
                       </TableCell>
                     </TableRow>
                   );
@@ -155,7 +156,7 @@ class Stories extends Component {
                   </form>
           </Col>
         </Row>
-          <Link to="/Projects/1">
+          <Link to={"/Projects/" + this.props.match.params.id}>
             <br />
             <h4> Next, organize your project into a backlog and icebox... </h4>
             <button type="button" class="btn-primary btn" href> Organize Now </button>
