@@ -17,6 +17,7 @@ class Projects extends Component {
 
   componentDidMount() {
     this.loadProjects();
+    console.log(this.props.isAuthed);
   }
 
   loadProjects = () => {

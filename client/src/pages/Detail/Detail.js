@@ -8,6 +8,8 @@ import StoryCard from "../../components/StoryCard";
 import StoryCardWrapper from "../../components/StoryCardWrapper";
 import sampleStories from "./SampleStories.json";
 import Button from '@material-ui/core/Button';
+import { CSVLink } from "react-csv";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 
 class Detail extends Component {
@@ -91,6 +93,7 @@ class Detail extends Component {
               <h1>
                 {this.state.project.title} by {this.state.project.owner}
               </h1>
+              <h4> Organization of User Stories </h4>
             </Jumbotron>
           </Col>
         </Row>
@@ -107,6 +110,9 @@ class Detail extends Component {
                 <p className="card-text">These are 'need to have' stories that should be included in the MVP.</p>
               </div>
             </JumbotronSmall>
+            <Link to={"/projects/" + this.props.match.params.id + "/stories"}>
+            <p style={{textAlign: "left", fontWeight: "bold"}}>Add More Stories +</p>
+            </Link>
           </Col>
           <Col size="md-6">
             <JumbotronSmall>
@@ -120,11 +126,14 @@ class Detail extends Component {
                 <p className="card-text">These are 'nice to have' stories that aren't required for the MVP.</p>
               </div>
             </JumbotronSmall>
+            <Link to={"/projects/" + this.props.match.params.id + "/stories"}>
+            <p style={{textAlign: "left", fontWeight: "bold"}}>Add More Stories +</p>
+            </Link>
           </Col>
         </Row>
         <Row>
           {/* <StoryCardWrapper> */}
-              <Col size="md-6">
+            <Col size="md-6">
               {this.state.storiesBacklog.map(story => (
                   <StoryCard
                     removeStory={this.deleteStory}
@@ -141,8 +150,16 @@ class Detail extends Component {
                     <Button onClick={() => this.setIcebox(story.id)} size="small" color="primary">Move to Icebox →</Button>
                   </StoryCard>
               ))}
-              </Col>
-              <Col size="md-6">
+              <br /> 
+              <CSVLink data={this.state.storiesBacklog}>
+              <Button variant="contained" color="default" style={{margin: "theme.spacing.unit"}}>
+                Download backlog  -
+                <span> </span>
+                <CloudDownloadIcon style={{marginLeft: "theme.spacing.unit"}} />
+              </Button>
+              </CSVLink>
+            </Col>
+            <Col size="md-6">
               {this.state.storiesIcebox.map(story => (
                   <StoryCard
                     removeStory={this.deleteStory}
@@ -159,8 +176,11 @@ class Detail extends Component {
                     <Button onClick={() => this.deleteStory(story.id)} size="small">Delete</Button>
                   </StoryCard>
               ))}
-              </Col>
+            </Col>
           {/* </StoryCardWrapper> */}
+        </Row>
+        <Row>
+          <br />
         </Row>
         <Row>
           <Col size="md-2">

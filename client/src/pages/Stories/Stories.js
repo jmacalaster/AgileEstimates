@@ -86,13 +86,14 @@ class Stories extends Component {
             <Jumbotron>
               <h1>{this.state.project.title} by {this.state.project.owner}</h1>
               <h4> Estimation of User Stories </h4>
-              <p> On this page you will work with your developer team to estimate 
+            </Jumbotron>
+            <p> On this page you will work with your developer team to estimate 
                   how long each user story will take the team to complete. Estimates 
                   should be based on "perfect developer days" (i.e. days when you
                   are most productive) with the certaintly based on how sure you are
                   in the estimate provided.
               </p>
-            </Jumbotron>
+              <br />
           </Col>
           <Col size="md-12">
           <Paper>

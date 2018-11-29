@@ -70,7 +70,7 @@ class Login extends Component {
               </FormBtn>
             </form>
             <br />
-            <p>Or sign up <Link to="/">here</Link></p>
+            <p>Or sign up <Link to="/signup">here</Link></p>
           </Col>
         </Row>
       </Container>

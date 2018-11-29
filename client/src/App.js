@@ -15,10 +15,12 @@ class App extends Component {
     isAuthed: false,
   };
 
+  // Set local storage to hold the logged in boolean value 
 updateAuth = bool => {
-this.setState({
-  isAuthed : bool
-})    
+  this.setState({
+    isAuthed : bool
+  });
+  // localStoage.setItem("isAuthed", bool);
 };
 
 render() {
@@ -28,10 +30,10 @@ render() {
       <Nav />
       <Switch>
         <Route exact path="/" render={() => <Signup isAuthed={this.state.isAuthed} updateAuth={this.updateAuth}/>} />
-        <Route exact path="/projects" component={Projects} />
+        <Route exact path="/projects" render={() => <Projects isAuthed={this.state.isAuthed} updateAuth={this.updateAuth}/>} />
         <Route exact path="/projects/:id" component={Detail} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/login" render={() => <Login isAuthed={this.state.isAuthed} updateAuth={this.updateAuth}/>} />
+        <Route exact path="/signup" render={() => <Signup isAuthed={this.state.isAuthed} updateAuth={this.updateAuth}/>} />
         <Route exact path="/projects/:id/stories" component={Stories} />
         <Route component={NoMatch} />
       </Switch>

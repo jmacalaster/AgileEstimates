@@ -9,6 +9,7 @@ const db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
 const app = express(); 
+app.use(require('morgan')('tiny'))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)

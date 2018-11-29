@@ -14,11 +14,13 @@ module.exports = {
       }).catch(function(err) {
         console.log(err);
         res.json(err);
-        // res.status(422).json(err.errors[0].message);
       });
   },
   login: function(req, res) {
-        console.log(req.body);  
-    passport.authenticate("local"), res.json();
+    passport.authenticate("local", function(err, account){
+    console.log(err);
+    console.log(account);
+    res.status(err ? 400 : 200).send(err ? err : account);
+    })(req, res)
   }
 };

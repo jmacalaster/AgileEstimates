@@ -33,10 +33,12 @@
     "fs": "^0.0.1-security",
     "if-env": "^1.0.4",
     "mongoose": "^5.0.17",
+    "morgan": "^1.9.1",
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "react-csv": "^1.0.19",
     "react-dragula": "^1.1.17",
     "sequelize": "^4.41.1"
   },

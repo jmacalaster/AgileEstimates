@@ -13,6 +13,10 @@ class Signup extends Component {
     password: ""
   };
 
+  componentDidMount() {
+    console.log(this.props.isAuthed);
+  }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
