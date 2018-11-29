@@ -14,7 +14,7 @@
     "seed": "node scripts/seedDB.js",
     "install": "cd client && yarn install",
     "build": "cd client && yarn run build",
-    "heroku-postbuild": "yarn run build"
+    "heroku-postbuild": "cd client && yarn install --only=dev && yarn install && yarn run build"
   },
   "author": "JMac <julia@defmethod.com>",
   "license": "ISC",
