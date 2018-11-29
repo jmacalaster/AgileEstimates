@@ -67,8 +67,8 @@ class Stories extends Component {
         certainty: this.state.certainty,
         icebox: false,
         noise: .25,
-        min: this.state.perfectDays/.75,
-        max: max,
+        min: (this.state.perfectDays/.75).toFixed(2),
+        max: max.toFixed(2),
       })
       .then(res => this.loadStories())
       .catch(err => console.log(err));
