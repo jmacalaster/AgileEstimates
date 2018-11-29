@@ -1,8 +1,11 @@
 {
-  "name": "mern",
+  "name": "agile_estimates",
   "version": "1.0.0",
-  "description": "",
+  "description": "An agile estimation tool for development teams",
   "main": "server.js",
+  "engines": {
+    "node": "8.11.2"
+  },
   "scripts": {
     "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
     "start:prod": "node server.js",
