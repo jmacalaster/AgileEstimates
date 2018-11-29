@@ -57,7 +57,8 @@ class Stories extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log(this.state)
-    let max = (((1-parseFloat(this.state.certainty))*parseFloat(this.state.perfectDays))+parseFloat(this.state.perfectDays))/.75
+    let max = ((((1-parseFloat(this.state.certainty))*parseFloat(this.state.perfectDays))+parseFloat(this.state.perfectDays))/.75).toFixed(2)
+    let min = (this.state.perfectDays/.75).toFixed(2)
     console.log(max)
     if (this.state.story) {
       API.saveStory({
@@ -67,8 +68,8 @@ class Stories extends Component {
         certainty: this.state.certainty,
         icebox: false,
         noise: .25,
-        min: (this.state.perfectDays/.75).toFixed(2),
-        max: max.toFixed(2),
+        min: min,
+        max: max,
       })
       .then(res => this.loadStories())
       .catch(err => console.log(err));
