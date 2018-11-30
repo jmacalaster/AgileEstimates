@@ -28,7 +28,7 @@ app.use(routes);
 // Send every request to the React app
 // Define any API routes before this runs
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/public/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
 // Syncing our database and logging a message to the user upon success
