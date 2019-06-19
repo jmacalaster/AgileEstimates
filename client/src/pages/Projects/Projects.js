@@ -41,80 +41,86 @@ class Projects extends Component {
     });
   };
 
+  handleFormError(error) {
+    console.log(error);
+    alert(error.message);
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.title && this.state.owner) {
       API.saveProject({
         title: this.state.title,
         owner: this.state.owner,
-        synopsis: this.state.synopsis
+        synopsis: this.state.synopsis,
+        user_id: localStorage.getItem("isAuthed")
       })
         .then(res => this.loadProjects())
-        .catch(err => console.log(err));
+        .catch(err => this.handleFormError(err));
     }
   };
 
   render() {
     return (
-      <div 
-      style={{ paddingLeft: 50, paddingRight: 50 }}
+      <div
+        style={{ paddingLeft: 50, paddingRight: 50 }}
       >
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>Add Your Project Title Here:</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Project Name (required)"
-              />
-              <Input
-                value={this.state.owner}
-                onChange={this.handleInputChange}
-                name="owner"
-                placeholder="Project Owner (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Project Description (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.owner && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Project
+        <Container fluid>
+          <Row>
+            <Col size="md-6">
+              <Jumbotron>
+                <h1>Add Your Project Title Here:</h1>
+              </Jumbotron>
+              <form>
+                <Input
+                  value={this.state.title}
+                  onChange={this.handleInputChange}
+                  name="title"
+                  placeholder="Project Name (required)"
+                />
+                <Input
+                  value={this.state.owner}
+                  onChange={this.handleInputChange}
+                  name="owner"
+                  placeholder="Project Owner (required)"
+                />
+                <TextArea
+                  value={this.state.synopsis}
+                  onChange={this.handleInputChange}
+                  name="synopsis"
+                  placeholder="Project Description (Optional)"
+                />
+                <FormBtn
+                  disabled={!(this.state.owner && this.state.title)}
+                  onClick={this.handleFormSubmit}
+                >
+                  Submit Project
               </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Current Projects to Estimate</h1>
-            </Jumbotron>
-            {this.state.projects.length ? (
-              <List>
-                {this.state.projects.map(project => (
-                  <ListItem key={project.id}>
-                    <Link to={"/projects/" + project.id + "/stories"}>
-                      <strong>
-                        {project.title} managed by {project.owner}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteProject(project.id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
+              </form>
+            </Col>
+            <Col size="md-6 sm-12">
+              <Jumbotron>
+                <h1>Current Projects to Estimate</h1>
+              </Jumbotron>
+              {this.state.projects.length ? (
+                <List>
+                  {this.state.projects.map(project => (
+                    <ListItem key={project.id}>
+                      <Link to={"/projects/" + project.id + "/stories"}>
+                        <strong>
+                          {project.title} managed by {project.owner}
+                        </strong>
+                      </Link>
+                      <DeleteBtn onClick={() => this.deleteProject(project.id)} />
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

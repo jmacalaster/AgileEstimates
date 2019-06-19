@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // Gets all projects
   getProjects: function () {
-    return axios.get("/api/projects");
+    return axios.get("/api/projects", { headers: { user_id: localStorage.getItem("isAuthed") } });
   },
   // Gets the project with the given id
   getProject: function (id) {
