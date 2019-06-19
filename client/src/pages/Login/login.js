@@ -19,7 +19,7 @@ class Login extends Component {
       [name]: value
     });
   };
-  handleLoginError(error){
+  handleLoginError(error) {
     console.log(error);
     alert("Invalid Login Credentials");
   };
@@ -35,7 +35,7 @@ class Login extends Component {
         email: this.state.email,
         password: this.state.password,
       })
-        .then(data => this.props.updateAuth(true))
+        .then(response => {this.props.updateAuth(true, response.data)})
         .catch(err => this.handleLoginError(err));
     }
   };

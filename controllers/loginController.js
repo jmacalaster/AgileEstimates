@@ -9,8 +9,9 @@ module.exports = {
       .create({
         email: req.body.email,
         password: req.body.password
-      }).then(function () {
-        res.json();
+      }).then(function (response) {
+        console.log(response.dataValues.id);
+        res.json(response.dataValues.id);
       }).catch(function (err) {
         console.log(err);
         next(err);
@@ -19,12 +20,13 @@ module.exports = {
   },
   login: function (req, res, next) {
     passport.authenticate("local", function (err, account) {
+      console.log(account.dataValues.id);
       if (!account) {
         let err = new Error("Invalid Login Credentials")
         next(err);
         res.status(400).send(err);
       } else {
-        res.status(err ? 400 : 200).send(err ? err : account);
+        res.status(err ? 400 : 200).json(err ? err : account.dataValues.id);
       };
     })(req, res)
   }
