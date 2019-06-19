@@ -18,6 +18,9 @@ module.exports = function (sequelize, DataTypes) {
     },
     user_id: {
       type: DataTypes.STRING,
+    },
+    is_example: {
+      type: DataTypes.BOOLEAN
     }
   });
   return Project;
