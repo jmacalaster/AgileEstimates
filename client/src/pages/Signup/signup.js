@@ -14,7 +14,6 @@ class Signup extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.isAuthed);
   }
 
   handleInputChange = event => {
