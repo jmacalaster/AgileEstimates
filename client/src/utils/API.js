@@ -48,6 +48,7 @@ export default {
   saveNewUser: function(signupData) {
     return axios.post("/api/user", signupData)
     .then(function(res) {
+      //TODO: sequelize validation error occuring here
       console.log(res);
       // window.location.replace("/projects")
     })

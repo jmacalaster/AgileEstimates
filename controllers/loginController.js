@@ -3,7 +3,7 @@ const passport = require("../config/passport");
 
 // Defining methods for the booksController
 module.exports = {
-  create: function (req, res) {
+  create: function (req, res, next) {
     console.log(req.body);
     db.User
       .create({
@@ -13,7 +13,8 @@ module.exports = {
         res.json();
       }).catch(function (err) {
         console.log(err);
-        res.json(err);
+        next(err);
+        res.status(400).send(err);
       });
   },
   login: function (req, res, next) {
