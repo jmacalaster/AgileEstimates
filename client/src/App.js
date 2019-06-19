@@ -18,7 +18,9 @@ class App extends Component {
     isAuthed: false,
   };
   componentDidMount() {
-    if (localStorage.getItem("isAuthed") !== undefined && localStorage.getItem("isAuthed") !== null ) {
+    if (localStorage.getItem("isAuthed") !== undefined
+      && localStorage.getItem("isAuthed") !== "undefined"
+      && localStorage.getItem("isAuthed") !== null) {
       this.setState({ isAuthed: true });
     };
   }
