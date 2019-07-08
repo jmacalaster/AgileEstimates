@@ -19,13 +19,17 @@ class App extends Component {
   };
   componentDidMount() {
     if (localStorage.getItem("isAuthed") !== undefined
-    && localStorage.getItem("isAuthed") !== "undefined"
-    && localStorage.getItem("isAuthed") !== null) {
+      && localStorage.getItem("isAuthed") !== "undefined"
+      && localStorage.getItem("isAuthed") !== null) {
       this.setState({ isAuthed: true });
     } else {
       this.setState({ isAuthed: false });
     }
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> spacing
   // Set local storage to hold the logged in boolean value 
   updateAuth = (bool, userId) => {
     localStorage.setItem("isAuthed", userId);
