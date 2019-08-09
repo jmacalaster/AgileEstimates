@@ -11,7 +11,7 @@ export const Footer = () => (
                   <h5 className="text-uppercase">Agile Estimates</h5>
                   <p>Agile Estimates is being built initially as a tool to be used internally at Def Method
                       (www.defmethod.com). The tool will soon be available for commercial use. To learn 
-                      more feel free to email the owner, Julia Macalaster, at julia@defmethod.com
+                      more feel free to email the owners, Julia Macalaster at julia@defmethod.com or Cefi Menda at cefimenda@intellioninc.com 
                   </p>
                 </div>
                 <hr className="clearfix w-100 d-md-none pb-3" />
