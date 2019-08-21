@@ -35,21 +35,10 @@ module.exports = {
       }).then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  updateBacklog: function(req, res) {
+  updateStatus: function(req, res) {
     db.Story
       .update(
-        {icebox: false}, 
-        {
-          where: {
-            id: req.params.id 
-          },
-      }).then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  updateIcebox: function(req, res) {
-    db.Story
-      .update(
-        {icebox: true}, 
+        {status: req.params.status}, 
         {
           where: {
             id: req.params.id 

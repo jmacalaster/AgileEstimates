@@ -29,13 +29,17 @@ export default {
   deleteStory: function (id) {
     return axios.delete("/api/stories/" + id);
   },
-  // Sets the state of Icebox for the story to "true"
+  // Sets the state of Icebox for the story to "icebox"
   iceboxStory: function (id) {
-    return axios.put("/api/stories/" + id + "/true");
+    return axios.put("/api/stories/" + id + "/icebox");
   },
-  // Sets the state of Icebox for the story to "false"
+  // Sets the state of Icebox for the story to "middle"
+  middleStory: function (id) {
+    return axios.put("/api/stories/" + id + "/middle");
+  },
+  // Sets the state of Icebox for the story to "backlog"
   backlogStory: function (id) {
-    return axios.put("/api/stories/" + id + "/false");
+    return axios.put("/api/stories/" + id + "/backlog");
   },
   // Saves a story to the database
   saveStory: function (storyData) {

@@ -26,10 +26,6 @@ class App extends Component {
       this.setState({ isAuthed: false });
     }
   };
-<<<<<<< HEAD
-=======
-
->>>>>>> spacing
   // Set local storage to hold the logged in boolean value 
   updateAuth = (bool, userId) => {
     localStorage.setItem("isAuthed", userId);
