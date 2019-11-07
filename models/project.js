@@ -1,5 +1,5 @@
 // Creating our User model
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Project = sequelize.define("Project", {
     // The email cannot be null, and must be a proper email before creation
     title: {
@@ -15,9 +15,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     date: {
       type: DataTypes.STRING,
+    },
+    user_id: {
+      type: DataTypes.STRING,
+    },
+    is_example: {
+      type: DataTypes.BOOLEAN
     }
   });
   return Project;
-};  
+};
 
 

@@ -13,14 +13,9 @@ router
   .put(storiesController.update)
   .delete(storiesController.remove);
 
-// Matches with "/api/stories/:id/false"
+// Matches with "/api/stories/:id/backlog"
 router
-  .route("/:id/false")
-  .put(storiesController.updateBacklog)
-
-// Matches with "/api/stories/:id/true"
-router
-  .route("/:id/true")
-  .put(storiesController.updateIcebox)
+  .route("/:id/:status")
+  .put(storiesController.updateStatus)
 
 module.exports = router;

@@ -29,8 +29,8 @@ class Stories extends Component {
   componentDidMount() {
     this.loadStories();
     API.getProject(this.props.match.params.id)
-    .then(res => this.setState({ project: res.data }))
-    .catch(err => console.log(err));
+      .then(res => this.setState({ project: res.data }))
+      .catch(err => console.log(err));
   }
 
   loadStories = () => {
@@ -57,8 +57,8 @@ class Stories extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log(this.state)
-    let max = ((((1-parseFloat(this.state.certainty))*parseFloat(this.state.perfectDays))+parseFloat(this.state.perfectDays))/.75).toFixed(2)
-    let min = (this.state.perfectDays/.75).toFixed(2)
+    let max = ((((1 - parseFloat(this.state.certainty)) * parseFloat(this.state.perfectDays)) + parseFloat(this.state.perfectDays)) / .75).toFixed(2)
+    let min = (this.state.perfectDays / .75).toFixed(2)
     console.log(max)
     if (this.state.story) {
       API.saveStory({
@@ -67,103 +67,104 @@ class Stories extends Component {
         perfectDays: this.state.perfectDays,
         certainty: this.state.certainty,
         icebox: false,
+        status: "backlog",
         noise: .25,
         min: min,
         max: max,
       })
-      .then(res => this.loadStories())
-      .catch(err => console.log(err));
+        .then(res => this.loadStories())
+        .catch(err => console.log(err));
     }
   };
 
   render() {
     return (
       <div
-      style={{ paddingLeft: 50, paddingRight: 50 }}
+        style={{ paddingLeft: 50, paddingRight: 50 }}
       >
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>{this.state.project.title} by {this.state.project.owner}</h1>
-              <h4> Estimation of User Stories </h4>
-            </Jumbotron>
-            <p> On this page you will work with your developer team to estimate 
-                  how long each user story will take the team to complete. Estimates 
-                  should be based on "perfect developer days" (i.e. days when you
-                  are most productive) with the certaintly based on how sure you are
-                  in the estimate provided.
+        <Container fluid>
+          <Row>
+            <Col size="md-12">
+              <Jumbotron>
+                <h1>{this.state.project.title} by {this.state.project.owner}</h1>
+                <h4> Estimation of User Stories </h4>
+              </Jumbotron>
+              <p> On this page you will work with your developer team to estimate
+                    how long each user story will take the team to complete. Estimates
+                    should be based on "perfect developer days" (i.e. days when you
+                    are most productive) with the certaintly based on how sure you are
+                    in the estimate provided.
               </p>
               <br />
-          </Col>
-          <Col size="md-12">
-          <Paper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Story Description</TableCell>
-                  <TableCell numeric>Perfect Developer Days</TableCell>
-                  <TableCell numeric>Certainty %</TableCell>
-                  <TableCell numeric>Minimum Number of Days</TableCell>
-                  <TableCell numeric>Maximum Number of Days</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.stories.map(story => {
-                  return (
-                    <TableRow key={story.id}>
-                      <TableCell component="th" scope="row">
-                        {story.story}
-                      </TableCell>
-                      <TableCell numeric>{story.perfectDays}</TableCell>
-                      <TableCell numeric>{story.certainty*100} %</TableCell>
-                      <TableCell numeric>{story.min}</TableCell>
-                      <TableCell numeric>{story.max}</TableCell>
-                      <TableCell>
-                        <Delete onClick={() => this.deleteStory(story.id)} />
-                      </TableCell>
+            </Col>
+            <Col size="md-12">
+              <Paper>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Story Description</TableCell>
+                      <TableCell numeric>Perfect Developer Days</TableCell>
+                      <TableCell numeric>Certainty %</TableCell>
+                      <TableCell numeric>Minimum Number of Days</TableCell>
+                      <TableCell numeric>Maximum Number of Days</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Paper>
-                <br />
-                  <form>
-                    <Input
-                    value={this.state.story}
-                    onChange={this.handleInputChange}
-                    name="story"
-                    placeholder="Describe your user story here..."
-                    />
-                    <Input
-                    value={this.state.perfectDays}
-                    onChange={this.handleInputChange}
-                    name="perfectDays"
-                    placeholder="Perfect Developer Days Estimate"
-                    />
-                    <Input
-                    value={this.state.certainty}
-                    onChange={this.handleInputChange}
-                    name="certainty"
-                    placeholder="Certainty %"
-                    />
-                    <FormBtn
-                      disabled={!(this.state.story)}
-                      onClick={this.handleFormSubmit}
-                    >
-                      Submit Story
+                  </TableHead>
+                  <TableBody>
+                    {this.state.stories.map(story => {
+                      return (
+                        <TableRow key={story.id}>
+                          <TableCell component="th" scope="row">
+                            {story.story}
+                          </TableCell>
+                          <TableCell numeric>{story.perfectDays}</TableCell>
+                          <TableCell numeric>{story.certainty * 100} %</TableCell>
+                          <TableCell numeric>{story.min}</TableCell>
+                          <TableCell numeric>{story.max}</TableCell>
+                          <TableCell>
+                            <Delete onClick={() => this.deleteStory(story.id)} />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </Paper>
+              <br />
+              <form>
+                <Input
+                  value={this.state.story}
+                  onChange={this.handleInputChange}
+                  name="story"
+                  placeholder="Describe your user story here..."
+                />
+                <Input
+                  value={this.state.perfectDays}
+                  onChange={this.handleInputChange}
+                  name="perfectDays"
+                  placeholder="Perfect Developer Days Estimate"
+                />
+                <Input
+                  value={this.state.certainty}
+                  onChange={this.handleInputChange}
+                  name="certainty"
+                  placeholder="Certainty %"
+                />
+                <FormBtn
+                  disabled={!(this.state.story)}
+                  onClick={this.handleFormSubmit}
+                >
+                  Submit Story
                     </FormBtn>
-                  </form>
-          </Col>
-        </Row>
+              </form>
+            </Col>
+          </Row>
           <Link to={"/Projects/" + this.props.match.params.id}>
             <br />
             <h4> Next, organize your project into a backlog and icebox... </h4>
             <button type="button" class="btn-primary btn" href> Organize Now </button>
           </Link>
-      </Container>
+        </Container>
 
       </div>
     );

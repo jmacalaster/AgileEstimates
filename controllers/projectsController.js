@@ -2,13 +2,24 @@ const db = require("../models");
 
 // Defining methods for the booksController
 module.exports = {
-  findAll: function(req, res) {
+  findAll: function (req, res) {
     db.Project
-      .findAll(req.query)
+      .findAll({
+        where: {
+          $or: [
+            {
+              user_id: req.headers.user_id
+            },
+            {
+              is_example: 1
+            }
+          ]
+        }
+      })
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => { console.log(err); res.status(422).json(err) });
   },
-  findById: function(req, res) {
+  findById: function (req, res) {
     db.Project
       .findOne({
         where: {
@@ -18,27 +29,28 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
+  create: function (req, res) {
+    console.log(req.body);
     db.Project
       .create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => { console.log(err); res.status(422).json(err) });
   },
-  update: function(req, res) {
+  update: function (req, res) {
     db.Project
-      .update(req.body, 
+      .update(req.body,
         {
           where: {
-            id: req.params.id 
+            id: req.params.id
           },
-      }).then(dbModel => res.json(dbModel))
+        }).then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  remove: function(req, res) {
+  remove: function (req, res) {
     db.Project
-      .destroy({ 
+      .destroy({
         where: {
-          id: req.params.id 
+          id: req.params.id
         },
       }).then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
